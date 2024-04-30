@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -13,18 +14,15 @@ namespace ConsoleApp3
         public List<int> linesStartedsqlInjection = new List<int> { };
         public List<int> injectedFunctions = new List<int> { };
         public List<int> Functions = new List<int> { };
-        string FilePath; 
-       public SCode(string FilePath)
+       public SCode(string content)
         {
-            this.FilePath = FilePath;   
-            scanFiles();    
-            countFunctions();
+             scanFiles(content);    
         }
-        public void scanFiles()
+        public void scanFiles(string content)
         {
             try
             {
-                string[] lines = File.ReadAllLines(FilePath);
+                string[] lines = File.ReadAllLines(content);
 
                 for (var i = 0; i < lines.Length; i++)
                 {
@@ -35,7 +33,6 @@ namespace ConsoleApp3
                         getfirstlineOffunction(lines);
                     }
                 }
-          //      getfirstlineOffunction(linesStartedsqlInjection);
                 printFunction(lines);
             }
             catch (IOException e)
@@ -93,7 +90,7 @@ namespace ConsoleApp3
                     int count = Regex.Matches(lines[j], pattern).Count;
                     int countclose = Regex.Matches(lines[j], patternclosed).Count;
                     cnt += count;
-                    Console.WriteLine(cnt);
+                  //  Console.WriteLine(cnt);
 
                     cnt -= countclose;
                     Console.WriteLine(lines[j]);
@@ -116,9 +113,9 @@ namespace ConsoleApp3
             foundedPattern|= Regex.IsMatch(program, privateFunction, RegexOptions.IgnoreCase);
             return foundedPattern; 
         }
-        void countFunctions()
+        void countFunctions(string content)
         {
-            string[] lines = File.ReadAllLines(FilePath);
+            string[] lines = File.ReadAllLines(content);
 
             for (var i = 0; i < lines.Length; i++)
             {
