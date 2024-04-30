@@ -18,8 +18,7 @@ namespace ConsoleApp3
             try
             {
                 string[] files = Directory.GetFiles(directoryPath, "*.cs");
-                Console.WriteLine(directoryPath);
-
+           
                 foreach (string file in files)
                 {
                     SCode obj = new SCode(file);

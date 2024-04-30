@@ -28,7 +28,7 @@ namespace ConsoleApp3
                 {
                     if (ContainsSQLQuery(lines[i]))
                     {
-                        Console.WriteLine(i);
+                       // Console.WriteLine(i);
                         linesStartedsqlInjection.Add(i + 1);
                         getfirstlineOffunction(lines);
                     }
@@ -61,7 +61,7 @@ namespace ConsoleApp3
                 {
                     if (isFunction(lines[j]))
                     {
-                        Console.WriteLine(j);
+                    //    Console.WriteLine(j);
                         injectedFunctions.Add(j);
                         break;
                     }
